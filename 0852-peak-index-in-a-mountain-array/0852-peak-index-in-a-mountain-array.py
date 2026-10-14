@@ -1,22 +1,16 @@
 class Solution(object):
     def peakIndexInMountainArray(self, arr):
-        """
-        :type arr: List[int]
-        :rtype: int
-        """
         n=len(arr)
+        low=0
+        high =len(arr)
+        while low<=high:
+            mid=low+(high-low)//2
 
-        if arr[0] > arr[1]:
-            return 0
+            if(mid==0 or arr[mid-1]<arr[mid]) and (mid==n-1 or arr[mid+1]<arr[mid]):
+                return mid
 
-        if arr[n-1]>arr[n-2]:
-            return n-1
-
-        if n==1:
-            return 0
-
-        for i in range (1,n-1):
-            if (arr[i]>arr[i+1]) & (arr[i] >arr[i-1]):
-                return i
-        
-    
+            elif mid>0 and arr[mid-1]>arr[mid]:
+                high=mid-1
+            else:
+                low=mid+1
+        return -1
